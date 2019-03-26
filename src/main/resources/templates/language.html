@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Languages</title>
+</head>
+<body>
+    <h1>Choose your language!</h1>
+
+    <form method="post" th:object="${language}">
+        <select  th:field="*{name}">
+            <option th:each="x : ${languages}" th:value="${x.getName()}" th:text="${x.getName()}" ></option>
+        </select>
+        <input type="text" />
+        <br/>
+        <button type="submit">Submit</button>
+    </form>
+
+
+
+</body>
+</html>
