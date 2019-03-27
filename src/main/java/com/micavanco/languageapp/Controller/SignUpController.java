@@ -11,24 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/login")
-public class UserController {
+@RequestMapping("/signup")
+public class SignUpController {
 
     @GetMapping
-    public String handleUser(Model model)
+    public String signUpForm(Model model)
     {
         model.addAttribute("user", new User());
-
-        return "login";
+        return "/signup";
     }
 
     @PostMapping
-    public String login(@Valid User user, Errors errors)
+    public String createNewUser(@Valid User user, Errors errors)
     {
         if(errors.hasErrors())
-            return "/login";
+            return "/signup";
 
-        System.out.println("Username: "+user.getUsername()+"\nPassword: "+user.getPassword());
+        System.out.println("Username: "+ user.getUsername()+"\nPassword: "+user.getPassword()+"\nCreated at: "+user.getCreatedAt());
 
         return "redirect:/";
     }

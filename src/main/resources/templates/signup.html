@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link href="../static/css/stylesheet.css" th:href="@{/css/stylesheet.css}" rel="stylesheet"/>
+</head>
+<body>
+    <h1>Fill form with user information</h1>
+
+    <form method="post" th:object="${user}">
+
+        <label for="username">Username</label>
+        <input id="username" type="text" th:field="*{username}"/>
+        <span class="validation-errors" th:if="${#fields.hasErrors('username')}"
+              th:errors="*{username}">Username error</span>
+        <br/>
+        <br/>
+
+        <label for="password">Password</label>
+        <input id="password" type="password" th:field="*{password}"/>
+        <span class="validation-errors" th:if="${#fields.hasErrors('password')}"
+              th:errors="*{password}">Password error</span>
+        <br/>
+        <br/>
+
+        <label for="confirm-password">Confirm Password</label>
+        <input id="confirm-password" type="password"/>
+
+        <br/>
+        <br/>
+
+        <label for="name">Name</label>
+        <input id="name" type="text" th:field="*{name}"/>
+        <span class="validation-errors" th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}">Name error</span>
+        <br/>
+        <br/>
+
+        <label for="surname">Surname</label>
+        <input id="surname" type="text" th:field="*{surname}"/>
+        <span class="validation-errors" th:if="${#fields.hasErrors('surname')}"
+              th:errors="*{surname}">Surname error</span>
+        <br/>
+        <br/>
+
+        <label for="city">City</label>
+        <input id="city" type="text" th:field="*{city}"/>
+        <span class="validation-errors" th:if="${#fields.hasErrors('city')}"
+              th:errors="*{city}">City error</span>
+        <br/>
+        <br/>
+
+        <button type="submit">Submit form</button>
+
+    </form>
+</body>
+</html>
