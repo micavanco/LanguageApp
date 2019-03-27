@@ -11,6 +11,8 @@ import java.util.Date;
 @Data
 public class User {
 
+
+    private Long id;
     @NotBlank(message = "Username can not be blank!")
     @Size(min = 4, message = "Username must be at least 4 characters long")
     private String username;
@@ -30,9 +32,27 @@ public class User {
 
     private Date createdAt;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public User()
     {
         createdAt = new Date();
+    }
+
+    public User(Long id, String username, String password, String name, String surname, String city)
+    {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.city = city;
     }
 
     public String getUsername() {

@@ -1,6 +1,8 @@
 package com.micavanco.languageapp.Controller;
 
 import com.micavanco.languageapp.Database.User;
+import com.micavanco.languageapp.Repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,6 +15,14 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/signup")
 public class SignUpController {
+
+    private final UserRepository userRepository;
+
+    @Autowired
+    public SignUpController(UserRepository userRepository)
+    {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping
     public String signUpForm(Model model)
@@ -28,6 +38,8 @@ public class SignUpController {
             return "/signup";
 
         System.out.println("Username: "+ user.getUsername()+"\nPassword: "+user.getPassword()+"\nCreated at: "+user.getCreatedAt());
+        user.setId(new Long(25));
+        userRepository.save(user);
 
         return "redirect:/";
     }
