@@ -1,17 +1,23 @@
 package com.micavanco.languageapp.Database;
 
-import lombok.Data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-@Data
+@Entity
 public class User {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "Username can not be blank!")
     @Size(min = 4, message = "Username must be at least 4 characters long")
@@ -27,17 +33,17 @@ public class User {
     @NotBlank(message = "City is required")
     private String city;
 
-
     private Integer points;
 
+    @JsonFormat(pattern = "dd-mm-yyyy")
     private Date createdAt;
-
-    public Long getId() {
-        return id;
-    }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public User()
@@ -53,6 +59,7 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.city = city;
+        createdAt = new Date();
     }
 
     public String getUsername() {

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link href="../static/css/stylesheet.css" th:href="@{/css/stylesheet.css}" rel="stylesheet"/>
 </head>
 <body>
     <h1>Login to application</h1>
@@ -12,10 +13,12 @@
         <label for="username">Username</label>
         <input id="username" type="text" th:field="*{username}"/>
 
+
         <br/>
         <label for="password">Password</label>
         <input id="password" type="password" th:field="*{password}"/>
-
+        <br/>
+        <span class="validation-errors" th:if="${error}">Username or/and password are incorrect</span>
         <br/>
         <button type="submit">Login</button>
 

@@ -1,7 +1,7 @@
 package com.micavanco.languageapp.Controller;
 
 import com.micavanco.languageapp.Database.User;
-import com.micavanco.languageapp.Repositories.UserRepository;
+import com.micavanco.languageapp.Repositories.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +16,10 @@ import javax.validation.Valid;
 @RequestMapping("/signup")
 public class SignUpController {
 
-    private final UserRepository userRepository;
+    private final UserDao userRepository;
 
     @Autowired
-    public SignUpController(UserRepository userRepository)
+    public SignUpController(UserDao userRepository)
     {
         this.userRepository = userRepository;
     }
@@ -38,7 +38,6 @@ public class SignUpController {
             return "/signup";
 
         System.out.println("Username: "+ user.getUsername()+"\nPassword: "+user.getPassword()+"\nCreated at: "+user.getCreatedAt());
-        user.setId(new Long(25));
         userRepository.save(user);
 
         return "redirect:/";
