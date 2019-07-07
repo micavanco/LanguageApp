@@ -1,8 +1,9 @@
 .nav-container{
     width: 100%;
     height: 60px;
-    background: aliceblue;
+    background: #5E95CC;
     text-align: center;
+
 }
 
 .logo{
@@ -13,7 +14,8 @@
 }
 
 .nav-btn{
-    margin: 18px 10px;
+    margin: 18px 50px;
     float: right;
     cursor: pointer;
+    color: #BB4040;
 }

@@ -10,6 +10,7 @@ export default class NavBar extends Component{
                 <div className={"logo"}>OLECH</div>
                 <div className={"nav-btn"}>Login</div>
                 <div className={"nav-btn"}>Best Score</div>
+                <div className={"nav-btn"}>Learning</div>
             </div>
         );
     }

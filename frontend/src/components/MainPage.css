@@ -1,0 +1,56 @@
+.main-container{
+    background: #7F949D;
+    width: 50vw;
+    height: 50vh;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.question{
+    color: #BB4040;
+    font-size: 20px;
+    margin: 20px;
+}
+
+.details-container{
+    display: flow;
+    width: 65%;
+}
+
+.learning-input{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #707070;
+    text-align: center;
+    outline: none;
+    width: 65%;
+    font-size: 18px;
+}
+
+.check-btn{
+    float: right;
+    margin: 40px;
+    width: 120px;
+    height: 25px;
+    background: #8383AB;
+    color: red;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 1px 4px 10px -1px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.check-btn:hover{
+    box-shadow: 1px 4px 10px -1px rgba(0,0,0,0.2);
+}
+
+.check-btn:active{
+    box-shadow: 1px 4px 10px -1px rgba(0,0,0,0.5);
+}
+
+.info-container{
+    float: left;
+}
