@@ -3,7 +3,10 @@
     height: 60px;
     background: #5E95CC;
     text-align: center;
+}
 
+.nav-container a{
+    text-decoration: none;
 }
 
 .logo{
@@ -11,6 +14,9 @@
     margin: 14px 10px;
     float: left;
     cursor: pointer;
+    font-weight: 600;
+    color: #182D20;
+    text-decoration: underline;
 }
 
 .nav-btn{

@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter, Route} from "react-router-dom";
 import NavBar from './components/NavBar';
 import './App.css';
 import MainPage from "./components/MainPage";
@@ -12,7 +13,12 @@ function App() {
     <div className="App">
       <NavBar/>
       <div className={"container"}>
-          <HighScorePage/>
+          <BrowserRouter>
+              <Route path="/" exact component={MainPage}/>
+              <Route path="/highscore" component={HighScorePage}/>
+              <Route path="/login" component={LoginPage}/>
+              <Route path="/signup" component={SignUpPage}/>
+          </BrowserRouter>
       </div>
       <Footer/>
     </div>
