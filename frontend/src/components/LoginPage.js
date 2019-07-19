@@ -11,7 +11,7 @@ export default class LoginPage extends Component{
                 <input className={"input-object"} placeholder={"Username"}/>
                 <input className={"input-object"} placeholder={"Password"}/>
                 <div className={"login-btn"}>Login</div>
-                <div className={"signUp-btn"}>New Here?</div>
+                <a className={"signUp-btn"} href={"/signup"}>New Here?</a>
             </div>
         );
     }

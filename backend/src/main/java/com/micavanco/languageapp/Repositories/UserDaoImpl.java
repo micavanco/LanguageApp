@@ -26,9 +26,17 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
-    public User save(User user) {
+    public boolean addUser(User user) {
         entityManager.persist(user);
 
-        return user;
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteUser(User user) {
+        entityManager.remove(user);
+
+        return true;
     }
 }

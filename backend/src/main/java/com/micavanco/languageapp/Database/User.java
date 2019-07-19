@@ -2,13 +2,10 @@ package com.micavanco.languageapp.Database;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -18,29 +15,34 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
+
     @NotBlank(message = "Username can not be blank!")
     @Size(min = 4, message = "Username must be at least 4 characters long")
     private String username;
+
     @NotBlank(message = "Password can not be blank!")
     @Size(min = 6, message = "Password must contains at least 6 characters")
     @Pattern(regexp = ".*[0-9].*", message = "Must contains at least on digit")
     private String password;
+
     @NotBlank(message = "Name is required")
     private String name;
+
     @NotBlank(message = "Surname is required")
     private String surname;
+
     @NotBlank(message = "City is required")
     private String city;
 
-    private Integer points;
+    //private List<Sessions> sessions;
+
+    private Long session_id;
 
     @JsonFormat(pattern = "dd-mm-yyyy")
+    @Column(name = "created_at")
     private Date createdAt;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getId() {
         return id;
@@ -48,10 +50,17 @@ public class User {
 
     public User()
     {
-        createdAt = new Date();
+        this.createdAt = new Date();
+        //this.sessions = new ArrayList<>();
     }
 
-    public User(Long id, String username, String password, String name, String surname, String city)
+    public User(Long id,
+                String username,
+                String password,
+                String name,
+                String surname,
+                String city
+    )
     {
         this.id = id;
         this.username = username;
@@ -59,7 +68,8 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.city = city;
-        createdAt = new Date();
+        this.createdAt = new Date();
+        //this.sessions = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -107,11 +117,11 @@ public class User {
         this.city = city;
     }
 
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
-    }
+//    public List<Sessions> getSessions() {
+//        return sessions;
+//    }
+//
+//    public void setSessions(List<Sessions> sessions) {
+//        this.sessions = sessions;
+//    }
 }

@@ -1,56 +1,68 @@
 package com.micavanco.languageapp.Controller;
 
 import com.micavanco.languageapp.Database.User;
-import com.micavanco.languageapp.Repositories.UserDao;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.micavanco.languageapp.Services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
-@Controller
-@RequestMapping("/login")
+@RestController
+@RequestMapping("/v1/user")
 public class UserController {
 
-    private final UserDao userRepository;
+    private UserService userService;
 
-    public UserController(UserDao userRepository)
-    {
-        this.userRepository = userRepository;
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping
-    public String handleUser(Model model)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResponseEntity<User> createUser(@RequestParam(value = "username")String username,
+                                     @RequestParam(value = "password")String password,
+                                     @RequestParam(value = "name")String name,
+                                     @RequestParam(value = "surname")String surname,
+                                     @RequestParam(value = "city")String city)
     {
-        model.addAttribute("user", new User());
-        model.addAttribute("error", false);
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setCity(city);
 
+        boolean wasCreated = false;
 
-        return "login";
+        try {
+            wasCreated = userService.createUser(user);
+        }catch (Exception ex)
+        {
+            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return wasCreated ? new ResponseEntity<User>(user,HttpStatus.CREATED):
+                new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping
-    public String login(@Valid User user, Errors errors, Model model)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public ResponseEntity<User> removeUser(@RequestParam(value = "username")String username,
+                                           @RequestParam(value = "password")String password)
     {
-        User user_temp = userRepository.findByUsername(user.getUsername());
-        if(user_temp == null)
+        User user;
+        boolean wasDeleted = false;
+        try {
+            user = userService.getUserByUsername(username);
+            if(user != null && user.getPassword().equals(password))
+                wasDeleted = userService.removeUser(user);
+        }catch (Exception ex)
         {
-            model.addAttribute("error", true);
-            return "/login";
+            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        if(!user_temp.getPassword().equals(user.getPassword()))
-        {
-            model.addAttribute("error", true);
-            return "/login";
-        }
-
-        System.out.println("Username: "+user_temp.getUsername()+"\nPassword: "+user_temp.getPassword());
-
-        return "redirect:/";
+        return wasDeleted ? new ResponseEntity<User>(user,HttpStatus.OK):
+                new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
     }
 }
