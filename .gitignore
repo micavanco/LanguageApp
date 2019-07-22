@@ -52,3 +52,5 @@
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
 
+/backend/src/main/resources/application.properties
+
