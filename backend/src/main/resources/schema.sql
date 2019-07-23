@@ -15,11 +15,11 @@
       question varchar(255) not null,
       answer varchar(255) not null,
       language varchar(25) not null,
-      questionNumber integer not null
+      question_number integer not null
     );
 
     create table if not exists Sessions (
-      session_id integer not null primary key,
+      session_id integer(0) not null primary key,
       user_id integer not null,
       lang_id integer not null,
       foreign key (user_id) references User(user_id),

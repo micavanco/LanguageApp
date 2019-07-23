@@ -1,6 +1,7 @@
 /backend/HELP.md
 /backend/target/
 /backend/.mvn/wrapper/maven-wrapper.jar
+/backend/src/main/resources/application.properties
 
 ### STS ###
 .apt_generated
@@ -51,6 +52,4 @@
 /frontend/npm-debug.log*
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
-
-/backend/src/main/resources/application.properties
 

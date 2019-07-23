@@ -6,4 +6,5 @@ public interface UserDao {
     User findByUsername(String username);
     boolean addUser(User user);
     boolean deleteUser(User user);
+    User getUserById(Long id);
 }

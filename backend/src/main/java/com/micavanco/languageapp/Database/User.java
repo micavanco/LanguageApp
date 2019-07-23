@@ -2,6 +2,7 @@ package com.micavanco.languageapp.Database;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -38,7 +39,10 @@ public class User {
 
     //private List<Sessions> sessions;
 
-    private Long session_id;
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "session_id")
+    private Sessions session;
 
     @JsonFormat(pattern = "dd-mm-yyyy")
     @Column(name = "created_at")
@@ -124,4 +128,13 @@ public class User {
 //    public void setSessions(List<Sessions> sessions) {
 //        this.sessions = sessions;
 //    }
+
+
+    public Sessions getSession() {
+        return session;
+    }
+
+    public void setSession(Sessions session) {
+        this.session = session;
+    }
 }

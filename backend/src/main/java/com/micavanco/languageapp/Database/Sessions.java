@@ -1,6 +1,8 @@
 package com.micavanco.languageapp.Database;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -22,6 +24,10 @@ public class Sessions {
         this.user_id = user_id;
         this.lang_id = lang_id;
         this.points = points;
+    }
+
+    public void setSession_id(Long session_id) {
+        this.session_id = session_id;
     }
 
     public Long getSession_id() {

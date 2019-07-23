@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Transactional
     public boolean addUser(User user) {
-        entityManager.persist(user);
+        entityManager.merge(user);
 
         return true;
     }
@@ -39,4 +39,10 @@ public class UserDaoImpl implements UserDao {
 
         return true;
     }
+
+    @Override
+    public User getUserById(Long id) {
+        return entityManager.find(User.class, id);
+    }
+
 }

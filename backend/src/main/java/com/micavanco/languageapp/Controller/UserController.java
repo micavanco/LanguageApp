@@ -43,7 +43,7 @@ public class UserController {
         {
             return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return wasCreated ? new ResponseEntity<User>(user,HttpStatus.CREATED):
+        return wasCreated ? new ResponseEntity<User>(HttpStatus.CREATED):
                 new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
     }
 
@@ -64,5 +64,21 @@ public class UserController {
 
         return wasDeleted ? new ResponseEntity<User>(user,HttpStatus.OK):
                 new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public ResponseEntity<User> getUser(@RequestParam(value = "username")String username)
+    {
+        User user;
+
+        try {
+            user = userService.getUserByUsername(username);
+        }catch (Exception ex)
+        {
+            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return user != null ? new ResponseEntity<>(user, HttpStatus.FOUND):
+                new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
