@@ -7,6 +7,7 @@ export default class NavBar extends Component{
         super(props);
 
         this.buttonRef = [React.createRef(), React.createRef(),React.createRef()];
+        this.state = {isAuthorized: false};
     }
 
     onNavButtonClick(e)
@@ -21,20 +22,32 @@ export default class NavBar extends Component{
 
     render()
     {
+        let Account = (
+            <a ref={this.buttonRef[0]}
+               className={"nav-btn"}
+               href={"/login"}
+               onClick={this.onNavButtonClick.bind(this)}>Login</a>
+        );
+        if(this.state.isAuthorized)
+            Account = (
+                <a ref={this.buttonRef[0]}
+                   className={"nav-btn"}
+                   href={"/account"}
+                   onClick={this.onNavButtonClick.bind(this)}>Account</a>
+            );
+
         return(
             <div className={"nav-container"}>
                 <a className={"logo"}
                    href={"/"}
                    onClick={this.onLogoClicked}>OLECH</a>
-                <a ref={this.buttonRef[0]}
-                   className={"nav-btn"}
-                   href={"/login"}
-                   onClick={this.onNavButtonClick.bind(this)}>Login</a>
+                {Account}
                 <a ref={this.buttonRef[1]}
                    className={"nav-btn"}
                    href={"/highscore"}
                    onClick={this.onNavButtonClick.bind(this)}>Best Score</a>
                 <a ref={this.buttonRef[2]}
+                   id={"learning"}
                    className={"nav-btn"}
                    href={"/"}
                    onClick={this.onNavButtonClick.bind(this)}>Learning</a>
@@ -50,5 +63,7 @@ export default class NavBar extends Component{
             else
                 e.current.style.textDecoration = "none";
         });
+        if(sessionStorage.getItem('username'))
+            this.setState({isAuthorized: true});
     }
 }

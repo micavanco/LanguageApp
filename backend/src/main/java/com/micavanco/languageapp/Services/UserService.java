@@ -6,4 +6,5 @@ public interface UserService {
     boolean createUser(User user);
     boolean removeUser(User user);
     User getUserByUsername(String username);
+    User loginUser(String username, String password);
 }

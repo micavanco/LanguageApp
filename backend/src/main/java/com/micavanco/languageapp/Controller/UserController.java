@@ -5,10 +5,7 @@ import com.micavanco.languageapp.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/user")
@@ -81,4 +78,22 @@ public class UserController {
         return user != null ? new ResponseEntity<>(user, HttpStatus.FOUND):
                 new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ResponseEntity<User> loginUser(@RequestParam(name = "username")String username,
+                                          @RequestParam(name = "password")String password)
+    {
+        User user;
+        try {
+            user = userService.loginUser(username, password);
+        }catch (Exception ex)
+        {
+            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return user != null ? new ResponseEntity<User>(user, HttpStatus.ACCEPTED):
+                new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+    }
+
 }
